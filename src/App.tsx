@@ -52,6 +52,11 @@ export const App = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
     const form = event.currentTarget;
     const formData = new FormData(form);
     const newTodo: Todo = {
@@ -61,10 +66,6 @@ export const App = () => {
       userId: +(formData.get('userId') as string),
       user: getUserById(+(formData.get('userId') as string)),
     };
-
-    if (!validateForm()) {
-      return;
-    }
 
     setTodos(prev => [...prev, newTodo]);
     resetForm();
